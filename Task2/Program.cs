@@ -10,10 +10,10 @@ namespace Task2
 
         static void Main(string[] args)
         {
-            var result = LookUp(new Item("apple", "pineapple"), "Thing.Description");
+            String path = "Thing.Description";
+            var result = LookUp(new Item("apple", "pineapple"), path);
             Console.WriteLine(result);
         }
-
 
         public static object LookUp(object obj, string path)
         {
@@ -25,9 +25,14 @@ namespace Task2
                 {
                     var _propertyInfo = obj.GetType().GetProperty(_propertyNames[i]);
                     if (_propertyInfo != null)
+                    {
                         obj = _propertyInfo.GetValue(obj);
+                    }
                     else
-                        obj = null;
+                    {
+                        throw new ArgumentNullException("Object null");
+                    }
+                        
                 }
             }
 
